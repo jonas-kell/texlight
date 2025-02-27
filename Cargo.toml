@@ -7,8 +7,14 @@ license = "MIT"
 repository = "https://github.com/jonas-kell/texlight"
 edition = "2021"
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
 log = "0.4"
 env_logger = "0.10"
+
+wasm-bindgen = "0.2"
+
 
 

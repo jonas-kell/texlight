@@ -12,5 +12,16 @@ services:
             - RUST_LOG=debug
         command: cargo watch -x "run dev"
 
+    compile-wasm:
+        build:
+            context: ./
+            dockerfile: ./docker/dev/Dockerfile
+        volumes:
+            - rust_build_cache:/usr/local/cargo/registry/
+            - ./:/app/
+        command: wasm-pack build --target web
+        profiles:
+            - extra_compile_task
+
 volumes:
     rust_build_cache:
