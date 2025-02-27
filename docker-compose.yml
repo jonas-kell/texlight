@@ -1,0 +1,16 @@
+services:
+    main-service:
+        build:
+            context: ./
+            dockerfile: ./docker/dev/Dockerfile
+        # ports:
+        #    - "8080:8080"
+        volumes:
+            - rust_build_cache:/usr/local/cargo/registry/
+            - ./:/app/
+        environment:
+            - RUST_LOG=debug
+        command: cargo watch -x "run dev"
+
+volumes:
+    rust_build_cache:
