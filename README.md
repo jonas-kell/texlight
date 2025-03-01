@@ -19,3 +19,5 @@ docker compose up
 ```shell
 docker compose run --rm compile-wasm
 ```
+
+python3 -m http.server
