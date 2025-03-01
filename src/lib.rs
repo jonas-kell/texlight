@@ -1,11 +1,6 @@
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
-extern "C" {
-    pub fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
-}
+pub mod completion;
+pub mod nrs_lang;
+pub mod semantic_analyze;
+pub mod semantic_token;
+pub mod span;
+pub mod symbol_table;

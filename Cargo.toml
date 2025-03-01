@@ -1,14 +1,11 @@
 [package]
-name = "texlight"
+name = "texlight-language-server"
 version = "0.0.0"
 description = "pdf-LaTeX superset language-server wrapper thingy"
 authors = ["jonas-kell"]
 license = "MIT"
 repository = "https://github.com/jonas-kell/texlight"
 edition = "2021"
-
-[lib]
-crate-type = ["cdylib"]
 
 [dependencies]
 log = "0.4"
