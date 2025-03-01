@@ -1,10 +1,15 @@
-use std::collections::HashMap;
+#[macro_use]
+extern crate log;
+
+use std::future::Future;
+use wasm_bindgen::prelude::*;
+use wasm_bindgen_futures::spawn_local;
 
 use dashmap::DashMap;
-use log::debug;
 use ropey::Rope;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::collections::HashMap;
 use texlight_language_server::completion::completion;
 use texlight_language_server::nrs_lang::{
     parse, type_inference, Ast, ImCompleteSemanticToken, ParserResult,
@@ -560,6 +565,10 @@ impl Backend {
 
 #[tokio::main]
 async fn main() {
+    real_main().await;
+}
+
+fn real_main() -> impl Future<Output = ()> {
     env_logger::init();
 
     let stdin = tokio::io::stdin();
@@ -574,7 +583,7 @@ async fn main() {
     })
     .finish();
 
-    Server::new(stdin, stdout, socket).serve(service).await;
+    Server::new(stdin, stdout, socket).serve(service)
 }
 
 fn offset_to_position(offset: usize, rope: &Rope) -> Option<Position> {
@@ -617,4 +626,9 @@ fn get_references(
         }
         IdentType::Reference(_) => None,
     }
+}
+
+#[wasm_bindgen(start)]
+pub fn start() {
+    spawn_local(real_main());
 }
